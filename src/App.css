@@ -5,6 +5,22 @@
   text-align: center;
 }
 
+@media (max-width: 960px) {
+  #root {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  #root {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
