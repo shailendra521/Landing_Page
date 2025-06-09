@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroSection from './components/HeroSection';
+import DemoRequestForm from './components/DemoRequestForm';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -20,7 +21,8 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <HeroSection />
+      {/* <HeroSection /> */}
+      <DemoRequestForm />
     </>
   );
 }
