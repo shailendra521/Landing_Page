@@ -2,6 +2,7 @@ import React from 'react';
 import HeroSection from './components/HeroSection';
 import DemoRequestForm from './components/DemoRequestForm';
 import { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -17,12 +18,36 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const PageContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+  }
+`;
+
 function App() {
   return (
     <>
       <GlobalStyle />
-      {/* <HeroSection /> */}
-      <DemoRequestForm />
+      <PageContainer>
+        <HeroSection />
+        <DemoRequestForm />
+      </PageContainer>
     </>
   );
 }
