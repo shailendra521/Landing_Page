@@ -23,21 +23,15 @@ const PageContainer = styled.div`
   height: 100vh;
   overflow-y: auto;
   scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
-
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
-    width: 4px;
+    display: none;
   }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 2px;
-  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 `;
 
 function App() {

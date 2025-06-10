@@ -301,10 +301,10 @@ const WhiteSection = styled.div`
 `;
 
 const DemoButton = styled.button`
-  background-color: #FF5C49;
+  background-color: #E65F46;
   color: white;
   padding: 1.25rem 2.5rem;
-  border-radius: 0.75rem;
+  border-radius: 3.95px;
   border: none;
   font-size: 1.5rem;
   font-weight: 600;
@@ -331,7 +331,7 @@ const DemoButton = styled.button`
   @media (max-width: 480px) {
     font-size: 1.25rem;
     padding: 1rem 1.75rem;
-    border-radius: 0.5rem;
+    border-radius: 3.95px;
   }
 `;
 const StarBigImg = styled.img`
