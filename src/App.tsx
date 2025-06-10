@@ -3,6 +3,7 @@ import HeroSection from './components/HeroSection';
 import DemoRequestForm from './components/DemoRequestForm';
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
+import DashBoard from './components/DashBoard';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -41,6 +42,7 @@ function App() {
       <PageContainer>
         <HeroSection />
         <DemoRequestForm />
+        <DashBoard />
       </PageContainer>
     </>
   );
