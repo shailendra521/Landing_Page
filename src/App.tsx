@@ -4,6 +4,8 @@ import DemoRequestForm from './components/DemoRequestForm';
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import DashBoard from './components/DashBoard';
+import VideoDashboard from './components/VideoDasboard';
+import PricingPlan from './components/PricingPlan';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -39,10 +41,15 @@ function App() {
   return (
     <>
       <GlobalStyle />
+
+     
+      {/* <VideoDashboard/> */}
+
       <PageContainer>
         <HeroSection />
         <DemoRequestForm />
         <DashBoard />
+        <PricingPlan/>
       </PageContainer>
     </>
   );
