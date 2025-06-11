@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Isolation_Mode from '../assets/Isolation_Mode.png';
 import Workforce_Dashboard from '../assets/Workforce_Dashboard.webp';
