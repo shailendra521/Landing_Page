@@ -65,9 +65,6 @@ const WorkforceGrid = styled.div`
   }
 `;
 
-interface StyledDivProps {
-  ref?: React.RefObject<HTMLDivElement>;
-}
 
 const WorkforceCard = styled.div`
   background: white;
@@ -153,156 +150,6 @@ const CardTextMore = styled.span`
   }
 `;
 
-const PayrollSection = styled.div`
-  background: white;
-  padding: 24px;
-  border-radius: 15px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-
-  @media (max-width: 768px) {
-    padding: 20px;
-    margin-bottom: 24px;
-  }
-`;
-
-const PayrollTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #000;
-  line-height: 1.2;
-
-  @media (max-width: 768px) {
-    font-size: 1.75rem;
-  }
-`;
-
-const PayrollImage = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-top: 20px;
-`;
-
-const BookDemoButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background-color: #E65F46;
-  color: #FFFFFF;
-  font-family: 'Public Sans', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  img {
-    width: 20px;
-    height: 20px;
-    margin-right: -4px;
-  }
-
-  &:hover {
-    background-color: #E65F46;
-  }
-`;
-
-const DemoButton = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #FF6B6B;
-  color: white;
-  padding: 16px 32px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 20px;
-  gap: 12px;
-  transition: background-color 0.2s, transform 0.2s;
-
-  &:hover {
-    background-color: #FF5252;
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    padding: 14px 28px;
-    font-size: 1.1rem;
-    margin-top: 16px;
-  }
-`;
-
-const RequestDemoLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background-color: #E65F46;
-  color: #FFFFFF;
-  font-family: 'Public Sans', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 4px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #E65F46;
-  }
-`;
-
-const Arrow = styled.span`
-  font-size: 1.4rem;
-  line-height: 1;
-`;
-
-interface PopupProps extends StyledDivProps {
-  isOpen: boolean;
-}
-
-const StyledPopup = styled.div<{ isOpen: boolean }>`
-  position: absolute;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.08);
-  padding: 8px 0;
-  min-width: 180px;
-  z-index: 1000;
-  opacity: ${props => props.isOpen ? 1 : 0};
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-10px)'};
-  transition: all 0.2s ease-in-out;
-  top: calc(100% + 8px);
-  left: 0;
-`;
-
-const Popup = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { isOpen: boolean }>(
-  ({ isOpen, ...props }, ref) => (
-    <StyledPopup ref={ref} isOpen={isOpen} {...props} />
-  )
-);
-
-const PopupItem = styled.div`
-  padding: 12px 16px;
-  font-family: 'Clash Grotesk', sans-serif;
-  font-size: 14px;
-  line-height: 130%;
-  color: #000000;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #F8F8F8;
-  }
-`;
-
 const MoreCardWrapper = styled.div`
   position: relative;
 `;
@@ -356,21 +203,8 @@ const DashBoard = () => {
     };
   }, []);
 
-  const moreOptions = [
-    'Core HR',
-    'Expense',
-    'Engagement',
-    'Asset',
-    'Helpdesk'
-  ];
-
-  const handleOptionClick = (option: string) => {
-    console.log(`Selected option: ${option}`);
-    setIsPopupOpen(false);
-  };
-
   const handleCardClick = (cardType: string, index: number) => {
-    if (index === 5) { // 5+ MORE card
+    if (index === 5) {
       setIsPopupOpen(!isPopupOpen);
     } else {
       setSelectedCard(cardType);
@@ -497,16 +331,6 @@ const DashBoard = () => {
           >
             <CardTextMore>5+ MORE</CardTextMore>
           </WorkforceCard>
-          <Popup isOpen={isPopupOpen} ref={popupRef}>
-            {moreOptions.map((option, index) => (
-              <PopupItem 
-                key={index}
-                onClick={() => handleOptionClick(option)}
-              >
-                {option}
-              </PopupItem>
-            ))}
-          </Popup>
         </MoreCardWrapper>
       </WorkforceGrid>
 

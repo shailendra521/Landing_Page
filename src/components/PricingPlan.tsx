@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import GreenTick from '../assets/GreenTick.png';
 
-
-// Add font import
 const GlobalStyle = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
 `;
@@ -171,24 +169,6 @@ const FeatureItem = styled.div`
   
   @media (min-width: 768px) {
     gap: 1.75rem;
-  }
-`;
-
-const CheckIcon = styled.div`
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background-color: #00C853;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 0.25rem;
-  
-  @media (min-width: 768px) {
-    width: 40px;
-    height: 40px;
-    margin-top: 0.5rem;
   }
 `;
 

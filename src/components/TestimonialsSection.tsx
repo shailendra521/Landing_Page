@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import VideoCarousel from './VideoCarousel';
 import HrOneXAH from '../assets/video/Hr One X AH.mp4';
