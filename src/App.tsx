@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import HeroSection from './components/HeroSection';
 import DemoRequestForm from './components/DemoRequestForm';
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import DashBoard from './components/DashBoard';
-import VideoDashboard from './components/VideoDasboard';
-// import ArrowIcon from './assets/ArrowIcon.png';
+// import VideoDashboard from './components/VideoDasboard';
 import PricingPlan from './components/PricingPlan';
 import AskQuestion from './components/AskQuestion';
 import Footer from './components/Footer';

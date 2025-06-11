@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Isolation_Mode from '../assets/Isolation_Mode.png';
 import Workforce_Dashboard from '../assets/Workforce_Dashboard.webp';
 import Performance from '../assets/Performance.webp';
-import GetStartedArrow from '../assets/GetStartedArrow.png';
 import Payroll from '../assets/Payroll.webp';
 import Attendance from '../assets/Attendance.webp';
 import Recruitment from '../assets/Recruitment.webp';
@@ -45,7 +44,6 @@ const Title = styled.h1`
   }
 `;
 
-
 const Subtitle = styled.h2`
   font-family: 'Public Sans', sans-serif;
   font-weight: 400;
@@ -54,9 +52,7 @@ const Subtitle = styled.h2`
   letter-spacing: 0;
   text-align: center;
   color: #333;
-  // margin-bottom: 18px;
 `;
-
 
 const WorkforceGrid = styled.div`
   display: grid;
@@ -156,8 +152,6 @@ const CardTextMore = styled.span`
     font-size: 13px;
   }
 `;
-
-
 
 const PayrollSection = styled.div`
   background: white;
@@ -369,7 +363,6 @@ const DashBoard = () => {
     'Asset',
     'Helpdesk'
   ];
-
 
   const handleOptionClick = (option: string) => {
     console.log(`Selected option: ${option}`);

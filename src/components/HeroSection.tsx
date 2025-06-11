@@ -317,57 +317,6 @@ const RatingBox = styled.div`
   // }
 `;
 
-const WhiteSection = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  @media (max-width: 480px) {
-    height: 100px;
-  }
-`;
-
-const DemoButton = styled.button`
-  background-color: #E65F46;
-  color: white;
-  padding: 1.25rem 2.5rem;
-  border-radius: 3.95px;
-  border: none;
-  font-size: 1.5rem;
-  font-weight: 600;
-  font-family: 'Public Sans', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  width: calc(100% - 3rem);
-  max-width: 400px;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    background-color: #FF4433;
-    transform: translateY(-2px);
-  }
-
-  .arrow {
-    font-size: 1.5rem;
-    margin-right: 0.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.25rem;
-    padding: 1rem 1.75rem;
-    border-radius: 3.95px;
-  }
-`;
 const StarBigImg = styled.img`
   position: absolute;
   top: 32px;
@@ -399,7 +348,6 @@ const StarSmallImg = styled.img`
     left: -8px;
   }
 `;
-
 
 const HeroSection: React.FC = () => {
   return (
