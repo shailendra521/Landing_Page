@@ -324,18 +324,9 @@ const DetailsContainer = styled.div`
 const DetailTitle = styled.h2`
   font-family: 'Clash Grotesk', sans-serif;
   font-weight: 600;
-  font-size: 32px;
-  line-height: 120%;
+  font-size: 20px;
+  line-height: 119%;
   color: #000000;
-  margin-bottom: 16px;
-`;
-
-const DetailDescription = styled.p`
-  font-family: 'Public Sans', sans-serif;
-  font-size: 16px;
-  line-height: 150%;
-  color: #000000;
-  margin-bottom: 24px;
 `;
 
 const ImageContainer = styled.div`
@@ -379,9 +370,6 @@ const DashBoard = () => {
     'Helpdesk'
   ];
 
-  const handleMoreClick = () => {
-    setIsPopupOpen(!isPopupOpen);
-  };
 
   const handleOptionClick = (option: string) => {
     console.log(`Selected option: ${option}`);
@@ -415,14 +403,6 @@ const DashBoard = () => {
               Workforce<br />
               Management
             </DetailTitle>
-            <DetailDescription>
-              Easily manage employee lifecycles with HROne from onboarding to 
-              offboarding, handle every HR task.
-            </DetailDescription>
-            <BookDemoButton>
-              <img src={GetStartedArrow} alt="→" />
-              Book a Demo!
-            </BookDemoButton>
             <ImageContainer>
               <img 
                 src={Workforce_Dashboard}
@@ -438,16 +418,6 @@ const DashBoard = () => {
               Boost Your Team's<br />
               Performance with Ease
             </DetailTitle>
-            <DetailDescription>
-              Set measurable goals and track KPIs, 
-              automate performance reviews, provide 
-              360-degree feedback and ensure 
-              unbiased review cycle.
-            </DetailDescription>
-            <BookDemoButton>
-              <img src={GetStartedArrow} alt="→" />
-              Book a Demo!
-            </BookDemoButton>
             <ImageContainer>
               <img 
                 src={Performance}
@@ -460,19 +430,9 @@ const DashBoard = () => {
         return (
           <DetailsContainer>
             <DetailTitle>
-              Take the Stress Out of<br />
-              Your Payroll
+              Take the Stress<br />
+              Out of Your Payroll
             </DetailTitle>
-            <DetailDescription>
-              Automate salary calculations, handle 
-              compliance with ease, and generate 
-              payslips instantly to ensure error-free 
-              payroll everytime.
-            </DetailDescription>
-            <BookDemoButton>
-              <img src={GetStartedArrow} alt="→" />
-              Book a Demo!
-            </BookDemoButton>
             <ImageContainer>
               <img 
                 src={Payroll}
@@ -488,15 +448,6 @@ const DashBoard = () => {
               Track Your Team's Attendance,<br />
               Effortlessly
             </DetailTitle>
-            <DetailDescription>
-              Mark attendance in real-time with geofencing, facial 
-              recognition, and mobile punch-ins and make every day count 
-              with HROne.
-            </DetailDescription>
-            <BookDemoButton>
-              <img src={GetStartedArrow} alt="→" />
-              Book a Demo!
-            </BookDemoButton>
             <ImageContainer>
               <img 
                 src={Attendance}
@@ -512,15 +463,6 @@ const DashBoard = () => {
               Find and Hire Your<br />
               Perfect Team, Faster
             </DetailTitle>
-            <DetailDescription>
-              Post jobs to multiple portals, utilise AI 
-              resume parser, and schedule interviews 
-              with ease for a smooth hiring experience.
-            </DetailDescription>
-            <BookDemoButton>
-              <img src={GetStartedArrow} alt="→" />
-              Book a Demo!
-            </BookDemoButton>
             <ImageContainer>
               <img 
                 src={Recruitment}
@@ -576,11 +518,6 @@ const DashBoard = () => {
       </WorkforceGrid>
 
       {renderCardContent()}
-
-      <DemoButton href="#request-demo">
-        <Arrow>→</Arrow>
-        Request a Free Demo!
-      </DemoButton>
     </Container>
   );
 };

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import VideoCarousel from './VideoCarousel';
 import HrOneXAH from '../assets/video/Hr One X AH.mp4';
 import HroneXDIY from '../assets/video/Hrone x DIY.mp4';
 import HroneXLUX from '../assets/video/Hrone x LUX.mp4';
-import LuxShorts from '../assets/video/Lux- shorts.mp4';
 import AHH from '../assets/AH.webp';
 import DIY from '../assets/MrDiv.webp';
 import LUX from '../assets/lux-logo.webp';
@@ -33,7 +32,7 @@ const testimonials = [
     designation: 'Head of HR'
   },
   {
-    video: LuxShorts,
+    video: HroneXLUX, // Temporarily using LUX video until WOW video is available
     companyLogo: WOW,
     quote: 'WOW Skin Science found a simple way to manage the employee lifecycle',
     speaker: 'Smriti HR',
@@ -43,9 +42,26 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   const [selectedVideo, setSelectedVideo] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+        
+        if (!isVisible && selectedVideo !== null) {
+          setSelectedVideo(null);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [selectedVideo]);
 
   return (
-    <Section>
+    <Section ref={sectionRef}>
       <SectionTitle>Straight from Our Customers</SectionTitle>
       <VideoCarousel
         testimonials={testimonials}
@@ -62,7 +78,7 @@ const Section = styled.section`
 `;
 
 const SectionTitle = styled.h2`
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
   padding-left: 45px;
   padding-right: 31px;
   padding-top: 42px;

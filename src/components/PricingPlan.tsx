@@ -211,53 +211,6 @@ const FeatureText = styled.p`
   }
 `;
 
-const CTAButton = styled.button`
-  width: 100%;
-  max-width: 335px;
-  background-color: #FF6B6B;
-  color: white;
-  font-family: 'Public Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 22px;
-  padding: 16px 24px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 32px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background-color: #FF5252;
-    transform: scale(1.05);
-  }
-  
-  @media (min-width: 768px) {
-    max-width: 720px;
-    font-size: 18px;
-    line-height: 24px;
-    padding: 2rem 2.5rem;
-    border-radius: 24px;
-    gap: 1.25rem;
-    margin-top: 5rem;
-  }
-  
-  svg {
-    width: 24px;
-    height: 24px;
-    
-    @media (min-width: 768px) {
-      width: 36px;
-      height: 36px;
-    }
-  }
-`;
-
 const PricingPlan = () => {
   return (
     <GlobalStyle>
@@ -277,7 +230,7 @@ const PricingPlan = () => {
           <PriceHeader>
             <PriceDot />
             <StartingText>Starting from</StartingText>
-        </PriceHeader>
+          </PriceHeader>
           <PriceAmount>₹ 99 /User/Month</PriceAmount>
         </PricingCard>
 
@@ -307,13 +260,6 @@ const PricingPlan = () => {
             </FeatureItem>
           ))}
         </FeaturesList>
-
-        <CTAButton>
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(-45deg)' }}>
-            <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-          Request a Free Demo!
-        </CTAButton>
       </Container>
     </GlobalStyle>
   );

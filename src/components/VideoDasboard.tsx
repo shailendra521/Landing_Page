@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import HrOneXAH from '../assets/video/Hr One X AH.mp4';
 import playicon from '../assets/playicon.png';
@@ -17,6 +17,8 @@ const DashboardContainer = styled.div<{ $isExpanded?: boolean }>`
   margin: 0 auto;
   transition: all 0.3s ease;
   transform: ${props => props.$isExpanded ? 'scale(1.1)' : 'scale(1)'};
+  transform-origin: center center;
+  padding-top: 20px;
 `;
 
 const VideoCard = styled.div<{ $isExpanded?: boolean }>`
@@ -28,6 +30,7 @@ const VideoCard = styled.div<{ $isExpanded?: boolean }>`
   transition: all 0.3s ease;
   cursor: pointer;
   aspect-ratio: 9/16;
+  transform-origin: center center;
 
   &:hover {
     transform: ${props => props.$isExpanded ? 'none' : 'translateY(-4px)'};
@@ -183,6 +186,26 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
   const [showPlayButton, setShowPlayButton] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Stop video when component unmounts or when isExpanded becomes false
+  useEffect(() => {
+    if (!isExpanded && videoRef.current) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+      setShowPlayButton(true);
+    }
+  }, [isExpanded]);
+
+  // Stop video when component unmounts
+  useEffect(() => {
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+        setShowPlayButton(true);
+      }
+    };
+  }, []);
+
   const handlePlayPause = () => {
     if (videoRef.current) {
       if (isPlaying) {
@@ -211,7 +234,6 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
             <video 
               ref={videoRef}
               src={video}
-              muted
               loop
               playsInline
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}

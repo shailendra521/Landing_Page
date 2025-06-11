@@ -13,11 +13,15 @@ import GetStartedArrow from '../assets/GetStartedArrow.png';
 const FormContainer = styled.div`
   max-width: 600px;
   margin: 0 auto;
-  padding: 42px 20px;
+  padding: 42px 0;
   background-color: #FFFFFF;
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+
+  form {
+    padding: 0 44px;
+  }
 `;
 
 const Title = styled.h1`
@@ -25,19 +29,15 @@ const Title = styled.h1`
   font-weight: 600;
   text-align: center;
   margin-bottom: 48.32px;
-  margin-left: 4px;
-  margin-right:3.81px;
   color: #333;
   font-family: 'Clash Grotesk', sans-serif;
   line-height: 30px;
   letter-spacing: 0;
+  padding: 0 44px;
 `;
-
 
 const FormGroup = styled.div`
   margin-bottom: 11px;
-  margin-left: 5px;
-  margin-right: 6px;
   position: relative;
 `; 
 
@@ -113,11 +113,6 @@ const Input = styled.input<{ hasError?: boolean }>`
   }
 `;
 
-
-const PhoneInputContainer = styled.div`
-  position: relative;
-  width: 100%;
-`;
 
 const PhoneInputWrapper = styled.div<{ hasError?: boolean }>`
   position: relative;
@@ -226,16 +221,6 @@ const PhoneInput = styled(Input)`
     transition: background-color 5000s ease-in-out 0s;
   }
 `;
-
-// const Divider = styled.div`
-//   position: absolute;
-//   left: 5rem;
-//   top: 50%;
-//   transform: translateY(-50%);
-//   // width: 1px;
-//   height: 20px;
-//   background-color: #E8E8E8;
-// `;
 
 const SelectWrapper = styled.div`
   position: relative;
@@ -362,14 +347,14 @@ const BrandsSection = styled.div`
   overflow: hidden;
   padding: 20px 0;
   position: relative;
-  margin-left: -20px;
-  margin-right: -20px;
-  width: calc(100% + 40px);
+  margin-left: -44px;
+  margin-right: -44px;
+  width: calc(100% + 88px);
 
   @media (max-width: 600px) {
-    margin-left: -20px;
-    margin-right: -20px;
-    width: calc(100% + 40px);
+    margin-left: -44px;
+    margin-right: -44px;
+    width: calc(100% + 88px);
   }
 `;
 
@@ -382,7 +367,7 @@ const BrandsTitle = styled.h2`
   text-align: center;
   margin-bottom: 2.5rem;
   color: #272727;
-  padding: 0 20px;
+  padding: 0 44px;
 `;
 
 const BrandsGrid = styled.div`
@@ -428,7 +413,7 @@ const BrandLogo = styled.img`
 const SliderContainer = styled.div`
   display: flex;
   align-items: center;
-  animation: slide 15s linear infinite;
+  animation: slide 5s linear infinite;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -454,7 +439,7 @@ const SliderContainer = styled.div`
 `;
 
 const ReverseSliderContainer = styled(SliderContainer)`
-  animation: slideReverse 15s linear infinite;
+  animation: slideReverse 12s linear infinite;
   
   @keyframes slideReverse {
     0% {
@@ -474,6 +459,11 @@ const StyledSpan = styled.span`
   letter-spacing: 0;
 `;
 
+const SelectFieldsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+`;
 
 const DemoRequestForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -605,7 +595,7 @@ const DemoRequestForm: React.FC = () => {
           {touched.phone && errors.phone && <ErrorMessage>{errors.phone}</ErrorMessage>}
         </FormGroup>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+        <SelectFieldsContainer>
           <FormGroup>
             <SelectWrapper>
               <CustomSelect>
@@ -656,10 +646,10 @@ const DemoRequestForm: React.FC = () => {
               {touched.state && errors.state && <ErrorMessage>{errors.state}</ErrorMessage>}
             </SelectWrapper>
           </FormGroup>
-        </div>
+        </SelectFieldsContainer>
 
         <Button type="submit">
-        <img src={GetStartedArrow} alt="Get Started Arrow" />
+          <img src={GetStartedArrow} alt="Get Started Arrow" />
           <StyledSpan>Get Started</StyledSpan>
         </Button>
       </form>

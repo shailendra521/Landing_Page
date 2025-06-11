@@ -73,30 +73,13 @@ const Answer = styled.div<{ isOpen: boolean }>`
   overflow: hidden;
   transition: max-height 0.3s ease;
   margin-top: ${props => props.isOpen ? '16px' : '0'};
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
-  color: #272727;
-  font-family: 'Clash Grotesk', sans-serif;
-`;
-
-const DemoButton = styled.a`
-  display: block;
-  width: 100%;
-  max-width: 900px;
-  margin: 60px auto 0;
-  padding: 20px;
-  background-color: #E85B4E;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 24px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #d14b3e;
-  }
+  line-height: 130%;
+  color: #000000;
+  letter-spacing: 0;
+  font-family: 'Public Sans', sans-serif;
 `;
 
 const AskQuestion = () => {
@@ -154,10 +137,6 @@ const AskQuestion = () => {
           </FAQItem>
         ))}
       </FAQList>
-
-      <DemoButton href="#demo">
-        → Request a Free Demo!
-      </DemoButton>
     </Container>
   );
 };

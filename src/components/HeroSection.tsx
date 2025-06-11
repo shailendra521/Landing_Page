@@ -6,7 +6,6 @@ import mobileChats from '../assets/mobileChats.png';
 import micIcon from '../assets/micIcon.png';
 import StarBig from '../assets/StartBig.png';
 import StarSmall from '../assets/StarSmall.png';
-import ArrowIcon from '../assets/ArrowIcon.png';
 
 const WhiteContainer = styled.div`
   width: 100%;
@@ -30,7 +29,42 @@ const HeroContainer = styled.div`
   background: linear-gradient(135deg, #004D40 0%, #00695C 100%);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -180px;
+    right: -180px;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(
+      circle at 35% 35%,
+      rgba(0, 255, 208, 0.15) 0%,
+      rgba(0, 255, 208, 0.1) 25%,
+      rgba(0, 255, 208, 0.05) 50%,
+      rgba(0, 255, 208, 0.02) 75%,
+      transparent 100%
+    );
+    transform: rotate(-12deg);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -180px;
+    left: -180px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(
+      circle at 65% 65%,
+      rgba(0, 255, 208, 0.12) 0%,
+      rgba(0, 255, 208, 0.08) 25%,
+      rgba(0, 255, 208, 0.04) 50%,
+      rgba(0, 255, 208, 0.01) 75%,
+      transparent 100%
+    );
+    transform: rotate(-12deg);
+  }
 `;
 
 const Logo = styled.img`
@@ -52,8 +86,9 @@ const TopRatedBadge = styled.div`
   gap: 0.125rem;
 
   img {
-    height: 24px;
-    width: auto;
+    width: 30.09px;
+    height: 30.09px;
+    object-fit: contain;
   }
 `;
 
@@ -66,11 +101,7 @@ const MainHeading = styled.h1`
   margin-bottom: 0.5rem;
   text-align: center;
 
-  @media (max-width: 480px) {
-    font-size: 2rem;
-    line-height: 2.2rem;
-    margin-bottom: 0.25rem;
-  }
+
 `;
 
 const Subheading = styled.p`
@@ -83,6 +114,8 @@ const Subheading = styled.p`
   text-align: center;
   max-width: 450px;
   letter-spacing: 0;        /* 0% spacing */
+  margin-left: 40px;
+  margin-right: 40px;
 `;
 
 const ContentWrapper = styled.div`
@@ -92,21 +125,19 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  height: calc(100vh - 120px);
-  padding-bottom: 340px;
+  height: 100vh;
+  padding-bottom: 0;
 
   @media (max-height: 700px) {
-    padding-bottom: 280px;
+    padding-bottom: 0;
   }
 
   @media (max-width: 480px) {
-    height: auto;
-    min-height: calc(100vh - 120px);
-    padding-bottom: 40px;
+    height: 100vh;
   }
 
   @media (max-width: 480px) and (min-height: 700px) {
-    padding-bottom: 160px;
+    padding-bottom: 0;
   }
 `;
 
@@ -153,7 +184,8 @@ const MobileImage = styled.div`
 
   @media (max-width: 480px) {
     max-width: 280px;
-
+    bottom: 0;
+    
     .mobile-main-image {
       max-height: 380px;
     }
@@ -176,6 +208,7 @@ const MainContent = styled.div`
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
+  padding-top: 1rem;
 
   @media (max-height: 800px) {
     gap: 0.5rem;
@@ -197,13 +230,14 @@ const RatingsContainer = styled.div`
   width: 100%;
   position: relative;
   padding: 0 2rem;
-  margin-top: 1rem;
+  // margin-top: 1rem;
+  paddin: 1000px;
 
-  @media (max-width: 480px) {
-    margin-top: 0.5rem;
-    padding: 0 1rem;
-    gap: 0.5rem;
-  }
+  // @media (max-width: 480px) {
+  //   margin-top: 0.5rem;
+  //   padding: 0 1rem;
+  //   gap: 0.5rem;
+  // }
 `;
 
 const RatingBox = styled.div`
@@ -214,15 +248,15 @@ const RatingBox = styled.div`
   justify-content: center;
 
   .rating-logo {
-    width: 31.43px;
-    height: 31.43px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    // width: 31.43px;
+    // height: 31.43px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 31.43px;
+    height: 31.43px;
       object-fit: contain;
     }
   }
@@ -253,34 +287,34 @@ const RatingBox = styled.div`
   }
 
   .reviews {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.625rem;
+    color: #FFFFFF;
+    font-size: 12px;
     font-family: 'Public Sans', sans-serif;
     line-height: 1;
     white-space: nowrap;
     display: inline-block;
   }
 
-  @media (max-width: 480px) {
-    gap: 0.5rem;
+  // @media (max-width: 480px) {
+  //   gap: 0.5rem;
 
-    .rating-logo {
-      width: 24px;
-      height: 24px;
-    }
+  //   .rating-logo {
+  //     width: 24px;
+  //     height: 24px;
+  //   }
 
-    .gartner-text {
-      font-size: 1rem;
-    }
+  //   .gartner-text {
+  //     font-size: 1rem;
+  //   }
 
-    .stars {
-      font-size: 0.75rem;
-    }
+  //   .stars {
+  //     font-size: 0.75rem;
+  //   }
 
-    .reviews {
-      font-size: 0.5rem;
-    }
-  }
+  //   .reviews {
+  //     font-size: 0.5rem;
+  //   }
+  // }
 `;
 
 const WhiteSection = styled.div`
@@ -404,20 +438,12 @@ const HeroSection: React.FC = () => {
           </MainContent>
 
           <MobileImage>
-          <StarSmallImg src={StarSmall} alt="Small Star" />
-          <StarBigImg src={StarBig} alt="Big Star" />
-      
+            <StarSmallImg src={StarSmall} alt="Small Star" />
+            <StarBigImg src={StarBig} alt="Big Star" />
             <img className="mobile-main-image" src={mobileChats} alt="HROne Mobile App Interface" />
             <img className="mic-icon" src={micIcon} alt="Mic Icon" />
           </MobileImage>
         </ContentWrapper>
-
-        <WhiteSection>
-          <DemoButton>
-          <img className="arrow" src={ArrowIcon} alt="Arrow Icon" />
-            Request a Free Demo!
-          </DemoButton>
-        </WhiteSection>
       </HeroContainer>
     </WhiteContainer>
   );

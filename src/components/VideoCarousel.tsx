@@ -85,9 +85,10 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
 
 const CarouselWrapper = styled.div`
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   background: transparent;
+  padding-top: 30px;
 `;
 
 const CarouselContainer = styled.div`
@@ -161,6 +162,7 @@ const CarouselSlide = styled.div<{ $isSelected: boolean; $hasSelectedVideo: bool
   height: auto;
   padding: 0 10px;
   margin-bottom: ${props => props.$isSelected ? '40px' : '0'};
+  transform-origin: center center;
 
   transform: ${props => {
     if (props.$hasSelectedVideo) {
