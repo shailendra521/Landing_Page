@@ -128,8 +128,8 @@ function App() {
         <div id="demo-form">
           <DemoRequestForm />
         </div>
-        <TestimonialsSection/>
         <DashBoard />
+        <TestimonialsSection/>
         <PricingPlan/>
         <AskQuestion/>
         <Footer/>
