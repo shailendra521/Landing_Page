@@ -6,13 +6,18 @@ import styled from 'styled-components';
 import DashBoard from './components/DashBoard';
 import VideoDashboard from './components/VideoDasboard';
 import PricingPlan from './components/PricingPlan';
+import AskQuestion from './components/AskQuestion';
+import Footer from './components/Footer';
+import TestimonialsSection from './components/TestimonialsSection';
 
 const GlobalStyle = createGlobalStyle`
+  @import url('https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,300,400,500,600,700&display=swap');
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Clash Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   body {
@@ -41,15 +46,15 @@ function App() {
   return (
     <>
       <GlobalStyle />
-
-     
-      {/* <VideoDashboard/> */}
-
       <PageContainer>
         <HeroSection />
         <DemoRequestForm />
+        <TestimonialsSection/>
         <DashBoard />
         <PricingPlan/>
+        <AskQuestion/>
+        <Footer/>
+        
       </PageContainer>
     </>
   );

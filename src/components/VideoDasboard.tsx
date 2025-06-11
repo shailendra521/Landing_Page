@@ -1,203 +1,244 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import HrOneXAH from '../assets/video/Hr One X AH.mp4';
+import playicon from '../assets/playicon.png';
 
-interface VideoData {
-  id: number;
-  thumbnail: string;
-  videoUrl: string;
-  companyName: string;
-  speakerName: string;
-  designation: string;
-  quote: string;
+interface VideoDashboardProps {
+  video?: string;
+  companyLogo?: string;
+  quote?: string;
+  speaker?: string;
+  designation?: string;
+  isExpanded?: boolean;
 }
 
-const VideoDashboard = () => {
-  const [activeVideo, setActiveVideo] = useState<number | null>(null);
-
-  const testimonials: VideoData[] = [
-    {
-      id: 1,
-      thumbnail: "/testimonial1.jpg",
-      videoUrl: "/video1.mp4",
-      companyName: "WOW SKIN SCIENCE",
-      speakerName: "Smriti Khanna",
-      designation: "VP HR",
-      quote: "WOW Skin Science found a simple way to manage the employee lifecycle"
-    },
-    // Add more testimonial data here
-  ];
-
-  const handleVideoClick = (id: number) => {
-    setActiveVideo(activeVideo === id ? null : id);
-  };
-
-  return (
-    <DashboardContainer>
-      <Title>Straight from Our Customers</Title>
-      <VideoGrid>
-        {testimonials.map((testimonial) => (
-          <VideoCard 
-            key={testimonial.id}
-            isActive={activeVideo === testimonial.id}
-            onClick={() => handleVideoClick(testimonial.id)}
-          >
-            <VideoContainer>
-              {activeVideo === testimonial.id ? (
-                <video 
-                  controls 
-                  autoPlay 
-                  src={testimonial.videoUrl}
-                  width="100%"
-                  height="100%"
-                />
-              ) : (
-                <>
-                  <Thumbnail src={testimonial.thumbnail} alt={testimonial.companyName} />
-                  <PlayButton>
-                    <PlayIcon>▶</PlayIcon>
-                  </PlayButton>
-                </>
-              )}
-            </VideoContainer>
-            <CompanyLogo>{testimonial.companyName}</CompanyLogo>
-            <TestimonialQuote>"{testimonial.quote}"</TestimonialQuote>
-            <SpeakerInfo>
-              <SpeakerName>{testimonial.speakerName}</SpeakerName>
-              <SpeakerDesignation>{testimonial.designation}</SpeakerDesignation>
-            </SpeakerInfo>
-          </VideoCard>
-        ))}
-      </VideoGrid>
-      <DemoButton>
-        <ArrowIcon>→</ArrowIcon> Request a Free Demo!
-      </DemoButton>
-    </DashboardContainer>
-  );
-};
-
-const DashboardContainer = styled.div`
-  padding-top: 42px;
-  padding-left: 45px;
-  padding-right: 31px;
-  padding-bottom: 27px;
-  max-width: 1200px;
+const DashboardContainer = styled.div<{ $isExpanded?: boolean }>`
+  width: 235.5px;
   margin: 0 auto;
-  background: #FFFFFF;
-`;
-
-const Title = styled.h2`
- font-family: 'Clash Grotesk', sans-serif;
-  font-size: 30px;
-  font-weight: 600;
-  line-height: 130%;
-  letter-spacing: 0;
-  text-align: center;
-  margin-bottom: 3rem;
-`;
-
-const VideoGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-`;
-
-const VideoCard = styled.div<{ isActive: boolean }>`
-  background: #FFFFFF;
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  height: ${props => props.isActive ? '500px' : '400px'};
-  
+  transform: ${props => props.$isExpanded ? 'scale(1.1)' : 'scale(1)'};
+`;
+
+const VideoCard = styled.div<{ $isExpanded?: boolean }>`
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  aspect-ratio: 9/16;
+
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: ${props => props.$isExpanded ? 'none' : 'translateY(-4px)'};
   }
 `;
 
-const VideoContainer = styled.div`
+const VideoContainer = styled.div<{ $isExpanded?: boolean }>`
   position: relative;
   width: 100%;
-  height: 60%;
-  background: #f5f5f5;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  transition: all 0.3s ease;
 `;
 
-const Thumbnail = styled.img`
+const VideoBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  z-index: 1;
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 `;
 
-const PlayButton = styled.div`
+const ContentOverlay = styled.div`
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  width: 50px;
-  height: 50px;
-  background: #4CAF50;
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0.8) 100%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+`;
+
+const PlayButtonOverlay = styled.div<{ isPlaying: boolean }>`
+  position: absolute;
+  top: 57%;
+  left: 81%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const PlayIcon = styled.span`
-  color: white;
-  font-size: 24px;
-`;
-
-const CompanyLogo = styled.div`
-  padding: 1rem;
-  font-weight: bold;
-  color: #333;
-`;
-
-const TestimonialQuote = styled.p`
-  padding: 0 1rem;
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 1rem;
-`;
-
-const SpeakerInfo = styled.div`
-  padding: 0 1rem 1rem;
-`;
-
-const SpeakerName = styled.h4`
-  margin: 0;
-  color: #333;
-  font-weight: bold;
-`;
-
-const SpeakerDesignation = styled.p`
-  margin: 0.25rem 0 0;
-  color: #666;
-`;
-
-const DemoButton = styled.button`
-  display: block;
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  font-size: 1.25rem;
-  background: #E75D51;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  transition: all 0.3s ease;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background 0.3s ease;
-
+  opacity: ${props => props.isPlaying ? '0' : '1'};
+  
   &:hover {
-    background: #d54d41;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 `;
 
-const ArrowIcon = styled.span`
-  font-size: 1.5rem;
+const VideoOverlay = styled.div<{ $isPlaying: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: ${props => props.$isPlaying ? 'transparent' : 'rgba(0, 0, 0, 0.2)'};
+  transition: background 0.3s ease;
+  cursor: pointer;
 `;
+
+const CompanyLogo = styled.img`
+  width: 52.61px;
+  height: 29.44px;
+  margin-bottom: 8px;
+  filter: brightness(0) invert(1);
+  object-fit: contain;
+  opacity: 0.9;
+`;
+
+const TestimonialQuote = styled.p`
+  font-family: 'Public Sans', sans-serif;
+  font-size: 14.27px;
+  font-weight: 600;
+  line-height: 101%;
+  letter-spacing: 0;
+  color: white;
+  margin: 12px 0;
+  font-style: italic;
+`;
+
+const SpeakerInfo = styled.div`
+  margin-top: 8px;
+`;
+
+const SpeakerName = styled.h4`
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  margin: 0;
+  font-family: 'Public Sans', sans-serif;
+  line-height: 120%;
+`;
+
+const SpeakerDesignation = styled.p`
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 2px 0 0;
+  font-family: 'Public Sans', sans-serif;
+  line-height: 120%;
+  font-weight: 400;
+`;
+
+const HandCursor = styled.div`
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 4;
+  width: 48px;
+  height: 48px;
+  background: url('/images/hand-cursor.png') no-repeat center;
+  background-size: contain;
+  pointer-events: none;
+  animation: float 2s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+`;
+
+const VideoDashboard: React.FC<VideoDashboardProps> = ({
+  video = HrOneXAH,
+  companyLogo = '/logos/wow-logo.svg',
+  quote = 'WOW Skin Science found a simple way to manage the employee lifecycle',
+  speaker = 'Smriti Khanna',
+  designation = 'VP HR',
+  isExpanded = false
+}) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setShowPlayButton(true);
+      } else {
+        videoRef.current.play();
+        setShowPlayButton(false);
+        // Hide play button after 1.5 seconds
+        setTimeout(() => setShowPlayButton(false), 1500);
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleVideoClick = () => {
+    setShowPlayButton(true);
+    handlePlayPause();
+  };
+
+  return (
+    <DashboardContainer $isExpanded={isExpanded}>
+      <VideoCard $isExpanded={isExpanded}>
+        <VideoContainer $isExpanded={isExpanded}>
+          <VideoBackground>
+            <video 
+              ref={videoRef}
+              src={video}
+              muted
+              loop
+              playsInline
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </VideoBackground>
+          <VideoOverlay 
+            $isPlaying={isPlaying}
+            onClick={handleVideoClick}
+          />
+          <ContentOverlay>
+            <CompanyLogo src={companyLogo} alt="Company Logo" />
+            <TestimonialQuote>"{quote}"</TestimonialQuote>
+            <SpeakerInfo>
+              <SpeakerName>{speaker}</SpeakerName>
+              <SpeakerDesignation>{designation}</SpeakerDesignation>
+            </SpeakerInfo>
+          </ContentOverlay>
+          {showPlayButton && (
+            <PlayButtonOverlay onClick={handlePlayPause} isPlaying={isPlaying}>
+              <img src={playicon} alt="Play" />
+            </PlayButtonOverlay>
+          )}
+          {!isExpanded && <HandCursor />}
+        </VideoContainer>
+      </VideoCard>
+    </DashboardContainer>
+  );
+};
 
 export default VideoDashboard;
