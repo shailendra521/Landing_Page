@@ -12,6 +12,7 @@ import WOW from '../assets/WOW.webp';
 import WOWThumbnail from '../assets/WOWThunbnail.png';
 import LuxThumbnail from '../assets/LuxThumbnails.png';
 import AHThumbnail from '../assets/AHThumnail.png';
+import MrDIVs from '../assets/MrDIVs.png';
 
 
 const testimonials = [
@@ -41,7 +42,7 @@ const testimonials = [
   },
   {
     video: HroneXDIY,
-    thumbnail: DIY,
+    thumbnail: MrDIVs,
     companyLogo: DIY,
     quote: 'Mr. DIY made HR effortless with automation',
     speaker: 'Yogesh Somani',

@@ -179,6 +179,44 @@ const ImageContainer = styled.div`
   }
 `;
 
+const DropdownMenu = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%) translateY(${props => props.isOpen ? '0' : '-10px'});
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+  opacity: ${props => props.isOpen ? 1 : 0};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  transition: all 0.2s ease-in-out;
+  z-index: 1000;
+  min-width: 120px;
+  width: fit-content;
+`;
+
+const DropdownItem = styled.div`
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  text-align: left;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #F5F5F5;
+  }
+`;
+
+const DropdownText = styled.span`
+  font-family: 'Clash Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 120%;
+  color: #333333;
+`;
+
 const DashBoard = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<string>('Workforce');
@@ -203,11 +241,13 @@ const DashBoard = () => {
     };
   }, []);
 
-  const handleCardClick = (cardType: string, index: number) => {
-    if (index === 5) {
+  const handleCardClick = (cardType: string) => {
+    if (cardType === 'more') {
       setIsPopupOpen(!isPopupOpen);
-    } else {
+    } else if (cardTypes.includes(cardType)) {
       setSelectedCard(cardType);
+      setIsPopupOpen(false);
+    } else {
       setIsPopupOpen(false);
     }
   };
@@ -218,6 +258,14 @@ const DashBoard = () => {
     'Payroll',
     'Attendance',
     'Recruitment',
+  ];
+
+  const moreCardTypes = [
+    'Expense',
+    'Engagement',
+    'Asset',
+    'Helpdesk',
+    'Travel'
   ];
 
   const renderCardContent = () => {
@@ -257,8 +305,8 @@ const DashBoard = () => {
         return (
           <DetailsContainer>
             <DetailTitle>
-              Take the Stress<br />
-              Out of Your Payroll
+              Take the Stress Out of<br />
+              Your Payroll
             </DetailTitle>
             <ImageContainer>
               <img 
@@ -315,7 +363,7 @@ const DashBoard = () => {
           <WorkforceCard 
             key={index} 
             className={selectedCard === cardType ? 'selected' : ''}
-            onClick={() => handleCardClick(cardType, index)}
+            onClick={() => handleCardClick(cardType)}
           >
             <Icon>
               <img src={Isolation_Mode} alt="Isolation_Mode" />
@@ -326,11 +374,21 @@ const DashBoard = () => {
         <MoreCardWrapper>
           <WorkforceCard 
             className="more-card" 
-            onClick={() => handleCardClick('more', 5)}
+            onClick={() => handleCardClick('more')}
             ref={buttonRef}
           >
             <CardTextMore>5+ MORE</CardTextMore>
           </WorkforceCard>
+          <DropdownMenu isOpen={isPopupOpen} ref={popupRef}>
+            {moreCardTypes.map((cardType, index) => (
+              <DropdownItem 
+                key={index}
+                onClick={() => handleCardClick(cardType)}
+              >
+                <DropdownText>{cardType}</DropdownText>
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
         </MoreCardWrapper>
       </WorkforceGrid>
 
