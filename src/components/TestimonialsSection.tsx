@@ -4,14 +4,36 @@ import VideoCarousel from './VideoCarousel';
 import HrOneXAH from '../assets/video/Hr One X AH.mp4';
 import HroneXDIY from '../assets/video/Hrone x DIY.mp4';
 import HroneXLUX from '../assets/video/Hrone x LUX.mp4';
+import WowVideo from '../assets/video/WowVideo.mp4';
 import AHH from '../assets/AH.webp';
 import DIY from '../assets/MrDiv.webp';
 import LUX from '../assets/lux-logo.webp';
 import WOW from '../assets/WOW.webp';
+import WOWThumbnail from '../assets/WOWThunbnail.png';
+import LuxThumbnail from '../assets/LuxThumbnails.png';
+import AHThumbnail from '../assets/AHThumnail.png';
+
 
 const testimonials = [
   {
+    video: HroneXLUX,
+    thumbnail: LuxThumbnail,
+    companyLogo: LUX,
+    quote: 'Lux found an easiest to use HR software to empower everyone',
+    speaker: 'Debraj Roy',
+    designation: 'Head of HR'
+  },
+  {
+    video: WowVideo,
+    thumbnail: WOWThumbnail,
+    companyLogo: WOW,
+    quote: 'WOW Skin Science found a simple way to manage the employee lifecycle',
+    speaker: 'Smriti HR',
+    designation: 'VP HR'
+  },
+  {
     video: HrOneXAH,
+    thumbnail: AHThumbnail,
     companyLogo: AHH,
     quote: 'AHH made HR easy, giving their team more time for what matters.',
     speaker: 'Rupali C Rane',
@@ -19,25 +41,12 @@ const testimonials = [
   },
   {
     video: HroneXDIY,
+    thumbnail: DIY,
     companyLogo: DIY,
     quote: 'Mr. DIY made HR effortless with automation',
     speaker: 'Yogesh Somani',
     designation: 'AVP & Head HR, MR DIV'
   },
-  {
-    video: HroneXLUX,
-    companyLogo: LUX,
-    quote: 'Lux found an easiest to use HR software to empower everyone',
-    speaker: 'Debraj Roy',
-    designation: 'Head of HR'
-  },
-  {
-    video: HroneXLUX, // Temporarily using LUX video until WOW video is available
-    companyLogo: WOW,
-    quote: 'WOW Skin Science found a simple way to manage the employee lifecycle',
-    speaker: 'Smriti HR',
-    designation: 'VP HR'
-  }
 ];
 
 const TestimonialsSection = () => {
@@ -90,6 +99,8 @@ const SectionTitle = styled.h2`
   font-family: 'Clash Grotesk', sans-serif;
   line-height: 30px;
   letter-spacing: 0;
+
+  
 `;
 
 export default TestimonialsSection; 

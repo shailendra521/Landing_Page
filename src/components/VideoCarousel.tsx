@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import type { TouchEvent, MouseEvent } from 'react';
 import styled from 'styled-components';
 import VideoDashboard from './VideoDasboard';
 
@@ -23,6 +24,10 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [dragDistance, setDragDistance] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selectedVideo !== null) {
@@ -30,29 +35,118 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
     }
   }, [selectedVideo]);
 
-  const handleSlideChange = (index: number) => {
+  const handleSlideChange = useCallback((index: number) => {
     if (isTransitioning) return;
+    
+    const validIndex = Math.max(0, Math.min(index, testimonials.length - 1));
+    
     setIsTransitioning(true);
-    setCurrentSlide(index);
+    setCurrentSlide(validIndex);
     setTimeout(() => setIsTransitioning(false), 500);
-  };
+  }, [isTransitioning, testimonials.length]);
 
   const handleVideoClick = (index: number) => {
-    if (selectedVideo === index) {
-      onVideoSelect(null);
-    } else {
-      onVideoSelect(index);
-      handleSlideChange(index);
+    if (!isDragging) {
+      if (selectedVideo === index) {
+        onVideoSelect(null);
+      } else {
+        onVideoSelect(index);
+        handleSlideChange(index);
+      }
     }
   };
+
+  const handleDragStart = (clientX: number) => {
+    if (!carouselRef.current) return;
+    setIsDragging(true);
+    setStartX(clientX - carouselRef.current.offsetLeft);
+    setDragDistance(0);
+  };
+
+  const handleDragMove = (clientX: number) => {
+    if (!isDragging || !carouselRef.current) return;
+    const x = clientX - carouselRef.current.offsetLeft;
+    const distance = (x - startX);
+    setDragDistance(distance);
+    
+    const percentageMoved = (distance / carouselRef.current.offsetWidth) * 100;
+    const trackStyle = `translateX(calc(${-currentSlide * 25}% + ${percentageMoved}px))`;
+    const track = carouselRef.current.querySelector('[data-carousel-track]') as HTMLElement;
+    if (track) {
+      track.style.transform = trackStyle;
+    }
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    if (Math.abs(dragDistance) > 50) { // Reduced threshold for easier sliding
+      const direction = dragDistance > 0 ? -1 : 1;
+      const newIndex = currentSlide + direction;
+      if (newIndex >= 0 && newIndex < testimonials.length) {
+        handleSlideChange(newIndex);
+      } else {
+        handleSlideChange(currentSlide);
+      }
+    } else {
+      handleSlideChange(currentSlide);
+    }
+    setDragDistance(0);
+  };
+
+  // Mouse event handlers
+  const handleMouseDown = (e: MouseEvent) => {
+    e.preventDefault();
+    handleDragStart(e.pageX);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    e.preventDefault();
+    handleDragMove(e.pageX);
+  };
+
+  // Touch event handlers
+  const handleTouchStart = (e: TouchEvent) => {
+    handleDragStart(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    e.preventDefault(); // Prevent scrolling while swiping
+    handleDragMove(e.touches[0].clientX);
+  };
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        handleSlideChange(currentSlide - 1);
+      } else if (e.key === 'ArrowRight') {
+        handleSlideChange(currentSlide + 1);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentSlide, handleSlideChange]);
 
   return (
     <CarouselWrapper>
       <CarouselContainer>
-        <CarouselViewport>
+        <CarouselViewport
+          ref={carouselRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleDragEnd}
+          onTouchCancel={handleDragEnd}
+        >
           <CarouselTrack 
+            data-carousel-track
             style={{ 
-              transform: `translateX(${-currentSlide * 25}%)`
+              transform: `translateX(${-currentSlide * 25}%)`,
+              cursor: isDragging ? 'grabbing' : 'grab'
             }}
           >
             {testimonials.map((testimonial, index) => (
@@ -75,6 +169,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
               $active={index === currentSlide}
               onClick={() => handleSlideChange(index)}
               disabled={isTransitioning}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </NavigationDots>
@@ -89,6 +184,9 @@ const CarouselWrapper = styled.div`
   position: relative;
   background: transparent;
   padding-top: 30px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 `;
 
 const CarouselContainer = styled.div`
@@ -117,6 +215,8 @@ const CarouselViewport = styled.div`
   width: 85%;
   margin: 0 auto;
   background: transparent;
+  touch-action: none;
+  -webkit-overflow-scrolling: touch;
 
   @media (max-width: 1024px) {
     width: 90%;
@@ -134,6 +234,12 @@ const CarouselTrack = styled.div`
   align-items: stretch;
   min-height: 320px;
   margin: 0 -10%;
+  will-change: transform;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 
   @media (max-width: 1024px) {
     min-height: 280px;

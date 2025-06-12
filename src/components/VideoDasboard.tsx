@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import HrOneXAH from '../assets/video/Hr One X AH.mp4';
 import playicon from '../assets/playicon.png';
 
 interface VideoDashboardProps {
   video?: string;
+  thumbnail?: string;
   companyLogo?: string;
   quote?: string;
   speaker?: string;
@@ -13,20 +13,29 @@ interface VideoDashboardProps {
 }
 
 const DashboardContainer = styled.div<{ $isExpanded?: boolean }>`
-  width: 235.5px;
+  width: 270px;
   margin: 0 auto;
   transition: all 0.3s ease;
   transform: ${props => props.$isExpanded ? 'scale(1.1)' : 'scale(1)'};
   transform-origin: center center;
   padding-top: 20px;
+
+  @media (max-width: 360px) {
+    width: 250px;
+    padding-top: 15px;
+  }
+  @media (max-width: 375px) {
+    width: 240px;
+    padding-top: 15px;
+  }
 `;
 
 const VideoCard = styled.div<{ $isExpanded?: boolean }>`
   position: relative;
-  border-radius: 32px;
+  border-radius: 28px;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 15px 30px -10px #31313159;
   transition: all 0.3s ease;
   cursor: pointer;
   aspect-ratio: 9/16;
@@ -54,7 +63,7 @@ const VideoBackground = styled.div`
   height: 100%;
   z-index: 1;
 
-  video {
+  video, img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -64,21 +73,22 @@ const VideoBackground = styled.div`
 
 const ContentOverlay = styled.div`
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0.8) 100%);
+  height: 40%;
+  background: rgba(49, 49, 49, 0.35);
+  backdrop-filter: blur(3.5681793689727783px);
   z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 16px;
 `;
 
 const PlayButtonOverlay = styled.div<{ isPlaying: boolean }>`
   position: absolute;
-  top: 57%;
+  top: 61%;
   left: 81%;
   transform: translate(-50%, -50%);
   z-index: 3;
@@ -109,7 +119,7 @@ const VideoOverlay = styled.div<{ $isPlaying: boolean }>`
   width: 100%;
   height: 100%;
   z-index: 2;
-  background: ${props => props.$isPlaying ? 'transparent' : 'rgba(0, 0, 0, 0.2)'};
+  background: ${props => props.$isPlaying ? 'transparent' : 'rgba(49, 49, 49, 0.1)'};
   transition: background 0.3s ease;
   cursor: pointer;
 `;
@@ -175,18 +185,19 @@ const HandCursor = styled.div`
 `;
 
 const VideoDashboard: React.FC<VideoDashboardProps> = ({
-  video = HrOneXAH,
-  companyLogo = '/logos/wow-logo.svg',
-  quote = 'WOW Skin Science found a simple way to manage the employee lifecycle',
-  speaker = 'Smriti Khanna',
-  designation = 'VP HR',
+  video = '',
+  thumbnail = '',
+  companyLogo = '',
+  quote = '',
+  speaker = '',
+  designation = '',
   isExpanded = false
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(true);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Stop video when component unmounts or when isExpanded becomes false
   useEffect(() => {
     if (!isExpanded && videoRef.current) {
       videoRef.current.pause();
@@ -195,7 +206,6 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
     }
   }, [isExpanded]);
 
-  // Stop video when component unmounts
   useEffect(() => {
     return () => {
       if (videoRef.current) {
@@ -214,7 +224,6 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
       } else {
         videoRef.current.play();
         setShowPlayButton(false);
-        // Hide play button after 1.5 seconds
         setTimeout(() => setShowPlayButton(false), 1500);
       }
       setIsPlaying(!isPlaying);
@@ -226,17 +235,30 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
     handlePlayPause();
   };
 
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
+
   return (
     <DashboardContainer $isExpanded={isExpanded}>
       <VideoCard $isExpanded={isExpanded}>
         <VideoContainer $isExpanded={isExpanded}>
           <VideoBackground>
+            {!isPlaying && thumbnail && (
+              <img src={thumbnail} alt="Video thumbnail" />
+            )}
             <video 
               ref={videoRef}
               src={video}
               loop
               playsInline
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover',
+                display: isPlaying ? 'block' : 'none'
+              }}
+              onLoadedData={handleVideoLoad}
             />
           </VideoBackground>
           <VideoOverlay 

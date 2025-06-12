@@ -73,13 +73,15 @@ const Answer = styled.div<{ isOpen: boolean }>`
   overflow: hidden;
   transition: max-height 0.3s ease;
   margin-top: ${props => props.isOpen ? '16px' : '0'};
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 130%;
-  color: #000000;
-  letter-spacing: 0;
   font-family: 'Public Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  white-space: pre-line;
+
+  p {
+    margin-bottom: 16px;
+  }
 `;
 
 const AskQuestion = () => {
@@ -87,8 +89,12 @@ const AskQuestion = () => {
 
   const questions = [
     {
-      question: "What is HRMS?",
-      answer: "An HRMS (Human Resource Management System) helps businesses automate HR tasks like payroll, employee onboarding, attendance, performance management, and compliance. It streamlines HR operations, enhances employee experience, and ensures data accuracy."
+      question: "Why choose HROne over other HR software platforms?",
+      answer: "Because it's not just a cloud-based HRMS. It's a system that actually gets HR done. While others focus on dashboards and data, HROne brings execution-first automation into every corner of your workflow.\n\n\
+✅ AI-powered HR software that responds to voice/chat prompts\n\
+✅ Automates 127+ processes — from onboarding to exit\n\
+✅ Trusted by 2000+ brands and 10 lakh+ users\n\n\
+HROne is fast, intuitive, and scalable — whether you're a 50-person startup or a 5000-strong enterprise. Just one prompt, and the work is done."
     },
     {
       question: "What are the key features of HROne- HR & Payroll Software?",
