@@ -7,6 +7,12 @@ import abp from '../assets/abp.png';
 import flipkart from '../assets/Flipkart.png';
 import Canon from '../assets/Canon.png';
 import magicpin from '../assets/magicpn.png';
+import haier from '../assets/haier.webp';
+import droom2 from '../assets/droom-2.webp';
+import Clarks from '../assets/Clarks.webp';
+import sula from '../assets/sula.webp';
+import idbiCapital from '../assets/idbiCapital.webp';
+import muthootFincorp from '../assets/muthoot-fincorp.webp';
 import CarrerLaunchers from '../assets/CarrerLaunchers.png';
 import GetStartedArrow from '../assets/GetStartedArrow.png';
 
@@ -413,7 +419,7 @@ const BrandLogo = styled.img`
 const SliderContainer = styled.div`
   display: flex;
   align-items: center;
-  animation: slide 5s linear infinite;
+  animation: slide 8s linear infinite;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -439,7 +445,7 @@ const SliderContainer = styled.div`
 `;
 
 const ReverseSliderContainer = styled(SliderContainer)`
-  animation: slideReverse 12s linear infinite;
+  animation: slideReverse 8s linear infinite;
   
   @keyframes slideReverse {
     0% {
@@ -662,20 +668,32 @@ const DemoRequestForm: React.FC = () => {
             <BrandLogo src={Bikanervala} alt="Bikanervala" loading="lazy" />
             <BrandLogo src={abp} alt="ABP News" loading="lazy" />
             <BrandLogo src={flipkart} alt="Flipkart" loading="lazy" />
+            <BrandLogo src={idbiCapital} alt="IDBI Capital" loading="lazy" />
+            <BrandLogo src={muthootFincorp} alt="Muthoot Fincorp" loading="lazy" />
             {/* Duplicate set for continuous loop */}
             <BrandLogo src={AmarSlider} alt="Amar Ujala" loading="lazy" />
             <BrandLogo src={Bikanervala} alt="Bikanervala" loading="lazy" />
             <BrandLogo src={abp} alt="ABP News" loading="lazy" />
             <BrandLogo src={flipkart} alt="Flipkart" loading="lazy" />
+            <BrandLogo src={idbiCapital} alt="IDBI Capital" loading="lazy" />
+            <BrandLogo src={muthootFincorp} alt="Muthoot Fincorp" loading="lazy" />
           </SliderContainer>
           <ReverseSliderContainer>
             <BrandLogo src={Canon} alt="Canon" loading="lazy" />
             <BrandLogo src={magicpin} alt="Magicpin" loading="lazy" />
             <BrandLogo src={CarrerLaunchers} alt="Career Launcher" loading="lazy" />
+            <BrandLogo src={droom2} alt="Droom" loading="lazy" />
+            <BrandLogo src={haier} alt="Haier" loading="lazy" />
+            <BrandLogo src={Clarks} alt="Clarks" loading="lazy" />
+            <BrandLogo src={sula} alt="Sula" loading="lazy" />
             {/* Duplicate set for continuous loop */}
             <BrandLogo src={Canon} alt="Canon" loading="lazy" />
             <BrandLogo src={magicpin} alt="Magicpin" loading="lazy" />
             <BrandLogo src={CarrerLaunchers} alt="Career Launcher" loading="lazy" />
+            <BrandLogo src={droom2} alt="Droom" loading="lazy" />
+            <BrandLogo src={haier} alt="Haier" loading="lazy" />
+            <BrandLogo src={Clarks} alt="Clarks" loading="lazy" />
+            <BrandLogo src={sula} alt="Sula" loading="lazy" />
           </ReverseSliderContainer>
         </BrandsGrid>
       </BrandsSection>
