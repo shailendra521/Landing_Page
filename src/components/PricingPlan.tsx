@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import GreenTick from '../assets/GreenTick.png';
+import PricingImage from '../assets/PricingImage.png';
 
 
 const Container = styled.div`
-  background-color: #013A29;
+  background-image: url(${PricingImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

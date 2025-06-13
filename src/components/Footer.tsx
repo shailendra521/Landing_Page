@@ -1,15 +1,29 @@
 import styled from 'styled-components';
-import FooterImage from '../assets/FooterImage.png';
+import FooterImageCards from '../assets/FooterImageCards.png';
 
 const FooterContainer = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
-  background-color: #F76818;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const BackgroundCards = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -18,7 +32,7 @@ const ContentWrapper = styled.div`
   max-width: 800px;
   z-index: 3;
   padding: 78px 35px 0;
-  // margin-bottom: 30px;
+  position: relative;
 `;
 
 const FooterTitle = styled.h1`
@@ -31,7 +45,7 @@ const FooterTitle = styled.h1`
   color: #FFFFFF;
 
   span {
-    color: #FFE5A2;
+    color: #FFDC78;
     display: inline;
   }
 `;
@@ -46,35 +60,18 @@ const FooterSubTitle = styled.p`
   margin: 0;
 `;
 
-const ImageWrapper = styled.div`
-  width: 110%;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  right: 0;
-  z-index: 2;
-  transform: translateX(-50%) scale(1.2);
-  
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-  }
-`;
-
 const Footer = () => {
   return (
     <FooterContainer>
+      <BackgroundCards>
+        <img src={FooterImageCards} alt="Background Cards" />
+      </BackgroundCards>
       <ContentWrapper>
         <FooterTitle>
           We are making HR simple <span>over 2000+ brands.</span>
         </FooterTitle>
         <FooterSubTitle>Make HR easy like never before!</FooterSubTitle>
       </ContentWrapper>
-      <ImageWrapper>
-        <img src={FooterImage} alt="HR Made Simple" />
-      </ImageWrapper>
     </FooterContainer>
   );
 };

@@ -75,9 +75,21 @@ const StaticDemoButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  img {
-    margin-right: 4px;
+  gap: 20px;
+`;
+
+const AnimatedArrow = styled.img`
+  width: 24.61px;
+  height: 19.14px;
+  animation: leftRight 1s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+
+  @keyframes leftRight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(12px);
+    }
   }
 `;
 
@@ -134,12 +146,7 @@ function App() {
         <Footer/>
         <StaticDemoButtonContainer isVisible={isButtonVisible}>
           <StaticDemoButton onClick={handleDemoClick}>
-          <img
-          src={ArrowIconsMain}
-          alt="Arrow Icons"
-          style={{ width: '24.61px', height: '19.14px' }}
-        />
-
+            <AnimatedArrow src={ArrowIconsMain} alt="Arrow Icons" />
             Request a Free Demo!
           </StaticDemoButton>
         </StaticDemoButtonContainer>

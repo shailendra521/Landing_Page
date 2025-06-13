@@ -6,11 +6,13 @@ import mobileChats from '../assets/mobileChats.png';
 import micIcon from '../assets/micIcon.png';
 import StarBig from '../assets/StartBig.png';
 import StarSmall from '../assets/StarSmall.png';
+import GreenBackgrounds from '../assets/GreenBackgrounds.png';
 
 const WhiteContainer = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: #004D40;
+  background: url(${GreenBackgrounds}) no-repeat center center;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,44 +28,16 @@ const HeroContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: linear-gradient(135deg, #004D40 0%, #00695C 100%);
+  background: transparent;
   position: relative;
   overflow: hidden;
 
   &::before {
-    content: '';
-    position: absolute;
-    top: -180px;
-    right: -180px;
-    width: 550px;
-    height: 550px;
-    background: radial-gradient(
-      circle at 35% 35%,
-      rgba(0, 255, 208, 0.15) 0%,
-      rgba(0, 255, 208, 0.1) 25%,
-      rgba(0, 255, 208, 0.05) 50%,
-      rgba(0, 255, 208, 0.02) 75%,
-      transparent 100%
-    );
-    transform: rotate(-12deg);
+    display: none;
   }
 
   &::after {
-    content: '';
-    position: absolute;
-    bottom: -180px;
-    left: -180px;
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(
-      circle at 65% 65%,
-      rgba(0, 255, 208, 0.12) 0%,
-      rgba(0, 255, 208, 0.08) 25%,
-      rgba(0, 255, 208, 0.04) 50%,
-      rgba(0, 255, 208, 0.01) 75%,
-      transparent 100%
-    );
-    transform: rotate(-12deg);
+    display: none;
   }
 `;
 
@@ -159,7 +133,6 @@ const MobileImage = styled.div`
     height: auto;
     display: block;
     object-fit: cover;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
     background: transparent;
     margin: 0;
   }
@@ -173,7 +146,7 @@ const MobileImage = styled.div`
     z-index: 2;
 
     img {
-      filter: brightness(0) saturate(100%) invert(36%) sepia(75%) saturate(2619%) hue-rotate(338deg) brightness(99%) contrast(101%);
+      filter: none;
     }
   }
 
@@ -349,10 +322,63 @@ const StarSmallImg = styled.img`
   }
 `;
 
+// Add SVG as React component for blurred green ellipse
+const BlurredGreenEllipse = styled.div`
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+
+  &.top-right {
+    top: -100px;
+    right: -80px;
+    width: 206px;
+    height: 149px;
+    @media (max-width: 480px) {
+      top: -80px;
+      right: -60px;
+      width: 140px;
+      height: 100px;
+    }
+  }
+
+  &.bottom-mobile {
+    display: none;
+    @media (max-width: 640px) {
+      display: block;
+      bottom: -60px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 206px;
+      height: 149px;
+      z-index: 0;
+    }
+  }
+`;
+
+const GreenEllipseSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="206" height="149" viewBox="0 0 206 149" fill="none">
+    <g filter="url(#filter0_f_75_131)">
+      <ellipse cx="181.863" cy="-17" rx="70.5" ry="55" fill="#36BE9E"/>
+    </g>
+    <defs>
+      <filter id="filter0_f_75_131" x="0.96624" y="-182.397" width="361.794" height="330.794" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+        <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+        <feGaussianBlur stdDeviation="55.1985" result="effect1_foregroundBlur_75_131"/>
+      </filter>
+    </defs>
+  </svg>
+);
+
 const HeroSection: React.FC = () => {
   return (
     <WhiteContainer>
       <HeroContainer>
+        {/* Top right blurred ellipse */}
+        <BlurredGreenEllipse className="top-right">
+          <GreenEllipseSVG />
+        </BlurredGreenEllipse>
         <ContentWrapper>
           <MainContent>
             <Logo src={Layer_1} alt="HROne Logo" />
@@ -384,6 +410,11 @@ const HeroSection: React.FC = () => {
               </RatingBox>
             </RatingsContainer>
           </MainContent>
+
+          {/* Bottom blurred ellipse for mobile only */}
+          <BlurredGreenEllipse className="bottom-mobile">
+            <GreenEllipseSVG />
+          </BlurredGreenEllipse>
 
           <MobileImage>
             <StarSmallImg src={StarSmall} alt="Small Star" />
