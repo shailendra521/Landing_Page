@@ -43,7 +43,6 @@ const HeroContainer = styled.div`
 
 const Logo = styled.img`
   width: 140px;
-  // margin-bottom: 2rem;
 `;
 
 const TopRatedBadge = styled.div`
@@ -203,14 +202,7 @@ const RatingsContainer = styled.div`
   width: 100%;
   position: relative;
   padding: 0 2rem;
-  // margin-top: 1rem;
   paddin: 1000px;
-
-  // @media (max-width: 480px) {
-  //   margin-top: 0.5rem;
-  //   padding: 0 1rem;
-  //   gap: 0.5rem;
-  // }
 `;
 
 const RatingBox = styled.div`
@@ -267,27 +259,6 @@ const RatingBox = styled.div`
     white-space: nowrap;
     display: inline-block;
   }
-
-  // @media (max-width: 480px) {
-  //   gap: 0.5rem;
-
-  //   .rating-logo {
-  //     width: 24px;
-  //     height: 24px;
-  //   }
-
-  //   .gartner-text {
-  //     font-size: 1rem;
-  //   }
-
-  //   .stars {
-  //     font-size: 0.75rem;
-  //   }
-
-  //   .reviews {
-  //     font-size: 0.5rem;
-  //   }
-  // }
 `;
 
 const StarBigImg = styled.img`
@@ -322,63 +293,10 @@ const StarSmallImg = styled.img`
   }
 `;
 
-// Add SVG as React component for blurred green ellipse
-const BlurredGreenEllipse = styled.div`
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-
-  &.top-right {
-    top: -100px;
-    right: -80px;
-    width: 206px;
-    height: 149px;
-    @media (max-width: 480px) {
-      top: -80px;
-      right: -60px;
-      width: 140px;
-      height: 100px;
-    }
-  }
-
-  &.bottom-mobile {
-    display: none;
-    @media (max-width: 640px) {
-      display: block;
-      bottom: -60px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      width: 206px;
-      height: 149px;
-      z-index: 0;
-    }
-  }
-`;
-
-const GreenEllipseSVG = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="206" height="149" viewBox="0 0 206 149" fill="none">
-    <g filter="url(#filter0_f_75_131)">
-      <ellipse cx="181.863" cy="-17" rx="70.5" ry="55" fill="#36BE9E"/>
-    </g>
-    <defs>
-      <filter id="filter0_f_75_131" x="0.96624" y="-182.397" width="361.794" height="330.794" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-        <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-        <feGaussianBlur stdDeviation="55.1985" result="effect1_foregroundBlur_75_131"/>
-      </filter>
-    </defs>
-  </svg>
-);
-
 const HeroSection: React.FC = () => {
   return (
     <WhiteContainer>
       <HeroContainer>
-        {/* Top right blurred ellipse */}
-        <BlurredGreenEllipse className="top-right">
-          <GreenEllipseSVG />
-        </BlurredGreenEllipse>
         <ContentWrapper>
           <MainContent>
             <Logo src={Layer_1} alt="HROne Logo" />
@@ -410,11 +328,6 @@ const HeroSection: React.FC = () => {
               </RatingBox>
             </RatingsContainer>
           </MainContent>
-
-          {/* Bottom blurred ellipse for mobile only */}
-          <BlurredGreenEllipse className="bottom-mobile">
-            <GreenEllipseSVG />
-          </BlurredGreenEllipse>
 
           <MobileImage>
             <StarSmallImg src={StarSmall} alt="Small Star" />

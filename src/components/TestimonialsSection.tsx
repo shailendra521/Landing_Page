@@ -46,7 +46,7 @@ const testimonials = [
     companyLogo: DIY,
     quote: 'Mr. DIY made HR effortless with automation',
     speaker: 'Yogesh Somani',
-    designation: 'AVP & Head HR, MR DIV'
+    designation: 'AVP & Head HR, MR DIY'
   },
 ];
 
