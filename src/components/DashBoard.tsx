@@ -36,12 +36,8 @@ const Title = styled.h1`
   line-height: 30px;
   letter-spacing: 0;
   text-align: center;
-  color: #000;
+  color: #000000;
   margin-bottom: 20px;
-
-  @media (max-width: 768px) {
-    font-size: 24px;
-  }
 `;
 
 const Subtitle = styled.h2`
@@ -168,6 +164,12 @@ const DetailTitle = styled.h2`
   font-size: 20px;
   line-height: 119%;
   color: #000000;
+  
+  @media (max-width: 480px) {
+    line-height: 130%;
+    max-width: 280px; /* Specific width for iPhone SE */
+    white-space: pre-line;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -185,27 +187,50 @@ const DropdownMenu = styled.div<{ isOpen: boolean }>`
   left: 50%;
   transform: translateX(-50%) translateY(${props => props.isOpen ? '0' : '-10px'});
   background: white;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid #ececec;
   padding: 4px;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transition: all 0.2s ease-in-out;
+  transition: opacity 0.2s cubic-bezier(0.4,0,0.2,1),
+              visibility 0.2s cubic-bezier(0.4,0,0.2,1),
+              transform 0.2s cubic-bezier(0.4,0,0.2,1);
   z-index: 1000;
-  min-width: 120px;
+  min-width: 140px;
   width: fit-content;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.04));
+  }
 `;
 
 const DropdownItem = styled.div`
-  padding: 6px 12px;
+  padding: 8px 16px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  border-radius: 6px;
+  transition: all 0.2s ease;
   text-align: left;
   white-space: nowrap;
+  position: relative;
 
   &:hover {
-    background-color: #F5F5F5;
+    background: #FDF3F1;
+    color: #E65F46;
+  }
+
+  &.active {
+    background: linear-gradient(90deg, #E65F46 0%, #ffb199 100%);
+    color: #fff;
   }
 `;
 
@@ -215,6 +240,15 @@ const DropdownText = styled.span`
   font-size: 13px;
   line-height: 120%;
   color: #333333;
+  transition: color 0.2s ease;
+
+  ${DropdownItem}:hover & {
+    color: #E65F46;
+  }
+
+  ${DropdownItem}.active & {
+    color: #fff;
+  }
 `;
 
 const DashBoard = () => {
@@ -222,6 +256,7 @@ const DashBoard = () => {
   const [selectedCard, setSelectedCard] = useState<string>('Workforce');
   const popupRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const [activeDropdownIndex, setActiveDropdownIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -252,6 +287,12 @@ const DashBoard = () => {
     }
   };
 
+  const handleDropdownItemClick = (cardType: string, index: number) => {
+    setActiveDropdownIndex(index);
+    setTimeout(() => setActiveDropdownIndex(null), 200); // 200ms highlight
+    handleCardClick(cardType);
+  };
+
   const cardTypes = [
     'Workforce',
     'Performance',
@@ -274,8 +315,7 @@ const DashBoard = () => {
         return (
           <DetailsContainer>
             <DetailTitle>
-              Simplify Your<br />
-              Workforce<br />
+              Simplify Your Workforce<br />
               Management
             </DetailTitle>
             <ImageContainer>
@@ -320,8 +360,7 @@ const DashBoard = () => {
         return (
           <DetailsContainer>
             <DetailTitle>
-              Track Your Team's Attendance,<br />
-              Effortlessly
+              Track Your Team's{"\n"}Attendance, Effortlessly
             </DetailTitle>
             <ImageContainer>
               <img 
@@ -383,7 +422,8 @@ const DashBoard = () => {
             {moreCardTypes.map((cardType, index) => (
               <DropdownItem 
                 key={index}
-                onClick={() => handleCardClick(cardType)}
+                onClick={() => handleDropdownItemClick(cardType, index)}
+                className={activeDropdownIndex === index ? 'active' : ''}
               >
                 <DropdownText>{cardType}</DropdownText>
               </DropdownItem>

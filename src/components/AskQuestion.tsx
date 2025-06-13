@@ -17,7 +17,7 @@ const Title = styled.div`
     font-family: 'Clash Grotesk', sans-serif;
     font-size: 28px;
     font-weight: 600;
-    line-height: 28px;
+    line-height: 32px;
     letter-spacing: 0;
   }
 
@@ -28,7 +28,7 @@ const Title = styled.div`
 
   h2 {
     color: #00553C;
-    // margin-top: -15px;
+    margin-top: -8px;
   }
 `;
 

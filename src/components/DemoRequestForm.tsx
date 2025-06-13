@@ -35,7 +35,7 @@ const Title = styled.h1`
   font-weight: 600;
   text-align: center;
   margin-bottom: 48.32px;
-  color: #333;
+  color: #3A3A3A;
   font-family: 'Clash Grotesk', sans-serif;
   line-height: 30px;
   letter-spacing: 0;
@@ -364,7 +364,7 @@ const BrandsSection = styled.div`
   }
 `;
 
-const BrandsTitle = styled.h2`
+const BrandsTitle = styled.h1`
   font-family: 'Public Sans', sans-serif;
   font-weight: 800;
   font-size: 22px;
@@ -419,7 +419,7 @@ const BrandLogo = styled.img`
 const SliderContainer = styled.div`
   display: flex;
   align-items: center;
-  animation: slide 8s linear infinite;
+  animation: slide 12s linear infinite;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -435,7 +435,7 @@ const SliderContainer = styled.div`
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-100%);
     }
   }
 
@@ -445,11 +445,11 @@ const SliderContainer = styled.div`
 `;
 
 const ReverseSliderContainer = styled(SliderContainer)`
-  animation: slideReverse 8s linear infinite;
+  animation: slideReverse 12s linear infinite;
   
   @keyframes slideReverse {
     0% {
-      transform: translateX(-50%);
+      transform: translateX(-100%);
     }
     100% {
       transform: translateX(0);
