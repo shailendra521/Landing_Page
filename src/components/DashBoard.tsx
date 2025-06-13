@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Isolation_Mode from '../assets/Isolation_Mode.png';
-import Workforce_Dashboard from '../assets/Workforce_Dashboard.webp';
-import Performance from '../assets/Performance.webp';
-import Payroll from '../assets/Payroll.webp';
-import Attendance from '../assets/Attendance.webp';
-import Recruitment from '../assets/Recruitment.webp';
+import Workforce_Dashboard from '../assets/Workforce_Dashboard.png';
+import Performance from '../assets/Performance.png';
+import Payroll from '../assets/Payroll.png';
+import Attendance from '../assets/Attendance.png';
+import Recruitment from '../assets/Recruitment.png';
 
 const Container = styled.div`
  padding: 42px 25px 10px 34px;
