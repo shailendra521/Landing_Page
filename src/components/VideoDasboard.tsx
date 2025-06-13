@@ -195,7 +195,6 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(true);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -235,10 +234,6 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
     handlePlayPause();
   };
 
-  const handleVideoLoad = () => {
-    setIsVideoLoaded(true);
-  };
-
   return (
     <DashboardContainer $isExpanded={isExpanded}>
       <VideoCard $isExpanded={isExpanded}>
@@ -258,7 +253,6 @@ const VideoDashboard: React.FC<VideoDashboardProps> = ({
                 objectFit: 'cover',
                 display: isPlaying ? 'block' : 'none'
               }}
-              onLoadedData={handleVideoLoad}
             />
           </VideoBackground>
           <VideoOverlay 
